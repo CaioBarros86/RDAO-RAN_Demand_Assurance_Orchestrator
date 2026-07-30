@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/rdao/offender-event.schema.json",
+  "title": "RDAO Offender Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "detected_at", "network_element", "metric", "classification", "score"],
+  "properties": {
+    "event_id": {"type": "string", "pattern": "^SYNTH-[A-Z0-9-]+$"},
+    "detected_at": {"type": "string", "format": "date-time"},
+    "network_element": {"type": "string"},
+    "metric": {"type": "string"},
+    "classification": {"enum": ["DEGRADATION", "TRANSIENT", "IMPROVEMENT"]},
+    "score": {"type": "number", "minimum": 0, "maximum": 100},
+    "evidence_uri": {"type": "string"}
+  }
+}

@@ -1,0 +1,26 @@
+name: Specification checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate JSON syntax
+        run: |
+          python -m json.tool schemas/offender-event.schema.json >/dev/null
+          python -m json.tool schemas/demand.schema.json >/dev/null
+          python -m json.tool examples/offender-event.synthetic.json >/dev/null
+          python -m json.tool examples/demand.synthetic.json >/dev/null
+      - name: Guard required architecture files
+        run: |
+          test -f README.md
+          test -f ROADMAP.md
+          test -f docs/technical-scope.pt-BR.md
+          test -f docs/executive-scope.pt-BR.md
