@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/rdao/demand.schema.json",
+  "title": "RDAO Demand",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["demand_id", "offender_event_id", "state", "owner_type", "sla_due_at"],
+  "properties": {
+    "demand_id": {"type": "string", "pattern": "^DEM-[A-Z0-9-]+$"},
+    "offender_event_id": {"type": "string"},
+    "state": {
+      "enum": ["DETECTED", "ROUTED", "IN_PROGRESS", "VERIFICATION", "REVIEW_REQUIRED", "CLOSED"]
+    },
+    "owner_type": {"enum": ["PERFORMANCE_TEAM", "OPERATIONS_TEAM"]},
+    "sla_due_at": {"type": "string", "format": "date-time"},
+    "external_ticket_id": {"type": ["string", "null"]},
+    "recurrence_count": {"type": "integer", "minimum": 0}
+  }
+}
